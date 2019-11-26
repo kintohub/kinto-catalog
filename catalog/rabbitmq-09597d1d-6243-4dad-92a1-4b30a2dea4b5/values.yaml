@@ -537,6 +537,7 @@ prometheus:
 clusterDomain: cluster.local
 
 ## Pod Disruption Budget
-podDisruptionBudget:
-  maxUnavailable: 1
-  minAvailable: 1
+# Nandi: we should not allow PDB on our charts.
+# podDisruptionBudget:
+#   maxUnavailable: 1
+#   minAvailable: 1
