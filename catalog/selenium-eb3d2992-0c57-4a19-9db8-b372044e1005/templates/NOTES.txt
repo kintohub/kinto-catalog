@@ -1,0 +1,29 @@
+Selenium Hub can be accessed via port {{ .Values.hub.port }} on the following
+DNS name from within your cluster:
+
+- http://{{ template "selenium.hub.fullname" . }}.{{ .Release.Namespace }}:{{ .Values.hub.port }}
+
+You can easily connect to the remote instance from your browser. Forward the
+webserver port to localhost:4444
+
+- kubectl port-forward --namespace {{ .Release.Namespace }} \
+  $(kubectl get pods --namespace {{ .Release.Namespace }} \
+    -l app={{ template "selenium.hub.fullname" . }} \
+    -o jsonpath='{ .items[0].metadata.name }') 4444
+
+{{- if and (not .Values.chrome.enabled) (not .Values.chromeDebug.enabled) (not .Values.firefox.enabled) (not .Values.firefoxDebug.enabled) }}
+WARNING: No nodes enabled, no browsers available via hub
+
+- Enable Chrome
+  chrome.enabled=true
+
+- Enable Chrome Debug
+  chromeDebug.enabled=true
+
+- Enable Firefox
+  firefox.enabled=true
+
+- Enable Firefox Debug
+  firefoxDebug.enabled=true
+
+{{ end }}

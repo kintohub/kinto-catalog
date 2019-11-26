@@ -1,0 +1,2 @@
+Redis can be accessed via port {{ .Values.redis.port }} and Sentinel can be accessed via port {{ .Values.sentinel.port }} on the following DNS name from within your cluster:
+{{ template "redis-ha.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local
