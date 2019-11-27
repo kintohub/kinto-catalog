@@ -3,7 +3,7 @@ set -e
 WORKSPACE_ID="3640a6a2-3ffe-467d-8d3b-1504e4296a97"
 D_REGISTRY="asia.gcr.io/linear-bounty-174410"
 BASE_IMAGE="kintodeploycustomservice-0948d792-3e89-4208-a121-8ad5b0718ba1"
-BASE_TAG="cs-docker-0"
+BASE_TAG="2.0.0"
 
 build() {
   SERVICE=$1
