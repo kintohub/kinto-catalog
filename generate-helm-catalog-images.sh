@@ -31,7 +31,7 @@ build elasticsearch f6e9aa74-d41e-4191-9e22-d9047a81aa13
 build influx-real a63e6579-af22-4640-a845-c95458ebbd5e
 build mariadb 0f4bbf74-c5b4-47da-bb29-1b29de33765c
 build minio cc9b5f21-8382-4e98-a98c-12e50bc60dd8
-build mongodb replicaset-ba171298-8d5a-4d98-943f-b4cacd19b757
+build mongodb-replicaset ba171298-8d5a-4d98-943f-b4cacd19b757
 build mysql 4926f99a-6ccb-4918-b89d-c3aa001fac81
 build nats fd9c0c29-7b73-4cb9-af26-cd47d163a2eb
 build patroni 9eac3f3f-ec7c-41ae-82d8-b6783ef69352
