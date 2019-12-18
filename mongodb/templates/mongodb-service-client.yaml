@@ -14,7 +14,7 @@ metadata:
 {{- if .Values.extraLabels }}
 {{ toYaml .Values.extraLabels | indent 4 }}
 {{- end }}
-  name: {{ .Values.kinto.alias }}
+  name: {{ template "mongodb-replicaset.fullname" . }}-client
 spec:
   type: ClusterIP
   clusterIP: None

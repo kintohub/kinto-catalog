@@ -1,7 +1,7 @@
 MongoDB is ready to be accessed on the following DNS name:
 
 {{- if .Values.auth.enabled }}
-   mongodb://{{ .Values.auth.adminUser }}:[auth.adminPassword]@{{ .Values.kinto.alias }}:{{ .Values.port }}/admin?replicaSet={{ .Values.replicaSetName }}
+   mongodb://{{ .Values.auth.adminUser }}:[auth.adminPassword]@{{ template "mongodb-replicaset.fullname" . }}-client:{{ .Values.port }}/admin?replicaSet={{ .Values.replicaSetName }}
 {{- else }}
-  mongodb://{{ .Values.kinto.alias }}:{{ .Values.port }}/test?replicaSet={{ .Values.replicaSetName }}
+  mongodb://{{ template "mongodb-replicaset.fullname" . }}-client:{{ .Values.port }}/test?replicaSet={{ .Values.replicaSetName }}
 {{- end}}

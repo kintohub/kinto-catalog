@@ -2,4 +2,4 @@ The elasticsearch cluster has been installed.
 
 Elasticsearch can be accessed:
 
-    {{ .Values.kinto.alias }}:9200
+    {{ template "elasticsearch.client.fullname" . }}:9200

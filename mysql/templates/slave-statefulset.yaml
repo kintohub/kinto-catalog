@@ -93,7 +93,7 @@ spec:
         - name: MYSQL_REPLICATION_MODE
           value: "slave"
         - name: MYSQL_MASTER_HOST
-          value: {{ .Values.kinto.alias }}
+          value: {{ template "mysql.master.fullname" . }}
         - name: MYSQL_MASTER_PORT_NUMBER
           value: "3306"
         - name: MYSQL_MASTER_ROOT_USER

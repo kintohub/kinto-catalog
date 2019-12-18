@@ -1,0 +1,8 @@
+replication.enabled=false
+replication.slaveReplicas=1
+postgresqlPassword=
+postgresqlDatabase=
+persistence.enabled=false
+persistence.size=8Gi
+resources.memory=256Mi
+resources.cpu=250m

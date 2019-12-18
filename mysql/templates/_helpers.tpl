@@ -11,42 +11,15 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
 {{- define "mysql.fullname" -}}
-{{- if .Values.fullnameOverride -}}
-{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- $name := default .Chart.Name .Values.nameOverride -}}
-{{- if contains $name .Release.Name -}}
-{{- .Release.Name | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-{{- end -}}
+cs-{{ .Values.kinto.alias }}
 {{- end -}}
 
 {{- define "mysql.master.fullname" -}}
-{{- if .Values.fullnameOverride -}}
-{{- printf "%s-%s" .Values.fullnameOverride "master" | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- $name := default .Chart.Name .Values.nameOverride -}}
-{{- if contains $name .Release.Name -}}
-{{- printf "%s-%s" .Release.Name "master" | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- printf "%s-%s-%s" .Release.Name $name "master" | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-{{- end -}}
+{{ template "mysql.fullname" . }}
 {{- end -}}
 
 {{- define "mysql.slave.fullname" -}}
-{{- if .Values.fullnameOverride -}}
-{{- printf "%s-%s" .Values.fullnameOverride "slave" | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- $name := default .Chart.Name .Values.nameOverride -}}
-{{- if contains $name .Release.Name -}}
-{{- printf "%s-%s" .Release.Name "slave" | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- printf "%s-%s-%s" .Release.Name $name "slave" | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-{{- end -}}
+{{ template "mysql.fullname" . }}-slave
 {{- end -}}
 
 {{- define "mysql.chart" -}}

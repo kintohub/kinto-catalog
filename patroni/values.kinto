@@ -1,8 +1,0 @@
-replicaCount=1
-credentials.superuser=tea
-credentials.admin=cola
-credentials.standby=pinacolada
-persistence.enabled=false
-persistence.size=1G
-resources.cpu=500m
-resources.memory=512Mi

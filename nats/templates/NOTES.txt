@@ -2,4 +2,4 @@
 
 NATS can be accessed via port {{ .Values.client.service.port }} on the following DNS name from within your cluster:
 
-   {{ .Values.kinto.alias }}
+   {{ template "nats.fullname" . }}

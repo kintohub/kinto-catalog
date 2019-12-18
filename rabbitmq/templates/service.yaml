@@ -5,7 +5,7 @@ metadata:
   annotations:
 {{ toYaml .Values.service.annotations | indent 4 }}
 {{- end }}
-  name: {{ .Values.kinto.alias }}
+  name: {{ template "rabbitmq-ha.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     app: {{ template "rabbitmq-ha.name" . }}

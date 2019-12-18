@@ -1,6 +1,0 @@
-Cassandra CQL can be accessed via port {{ .Values.config.ports.cql }} on the following DNS name from within your cluster: {{ .Values.kinto.alias }}
-Cassandra Thrift can be accessed via port {{ .Values.config.ports.thrift }} on the following DNS name from within your cluster: {{ .Values.kinto.alias }}
-
-{{- if not .Values.persistence.enabled }}
-Note that the cluster is running with node-local storage instead of PersistentVolumes.
-{{- end}}
