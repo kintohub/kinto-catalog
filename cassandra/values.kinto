@@ -3,5 +3,6 @@ persistence.size=10Gi
 config.cluster_size=1
 config.max_heap_size=2048M
 config.heap_new_size=512M
+resources.enabled=true
 resources.memory=512Mi
 resources.cpu=0.5

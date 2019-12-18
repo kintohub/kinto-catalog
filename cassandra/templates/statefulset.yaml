@@ -91,7 +91,7 @@ spec:
 {{- if .Values.argsOverrides }}
         args: {{ .Values.argsOverrides }}
 {{- end }}
-{{- if .Values.resources }}
+{{- if .Values.resources.enabled }}
         resources:
           requests:
             memory: {{ .Values.resources.memory }}
