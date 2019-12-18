@@ -23,6 +23,7 @@ spec:
         app: {{ template "cassandra.name" . }}
         release: {{ .Release.Name }}
         type: "cs"
+        alias: {{ .Values.kinto.alias }}
         workspace: {{ .Values.kinto.workspace }}
         blockName: {{ .Values.kinto.blockName }}
         envId: {{ .Values.kinto.envId }}
@@ -90,8 +91,15 @@ spec:
 {{- if .Values.argsOverrides }}
         args: {{ .Values.argsOverrides }}
 {{- end }}
+{{- if .Values.resources }}
         resources:
-{{ toYaml .Values.resources | indent 10 }}
+          requests:
+            memory: {{ .Values.resources.memory }}
+            cpu: {{ .Values.resources.cpu }}
+          limits:
+            memory: {{ .Values.resources.memory }}
+            cpu: {{ .Values.resources.cpu }}
+{{- end }}
         env:
         {{- $seed_size := default 1 .Values.config.seed_size | int -}}
         {{- $global := . }}
