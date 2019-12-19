@@ -1,7 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
+<<<<<<< HEAD
   name: {{ template "mysql.master.fullname" . }}
+=======
+  name: {{ .Values.kinto.alias }}
+>>>>>>> 🐛 Fix all the calalog blocks
   labels:
     app: "{{ template "mysql.name" . }}"
     component: "master"

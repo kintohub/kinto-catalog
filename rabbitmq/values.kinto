@@ -4,5 +4,9 @@ rabbitmqMemoryHighWatermark=256MB
 rabbitmqMemoryHighWatermarkType=absolute
 persistence.enabled=false
 persistence.size=1G
+<<<<<<< HEAD
+=======
+resources.enabled=true
+>>>>>>> 🐛 Fix all the calalog blocks
 resources.cpu=500m
 resources.memory=512Mi

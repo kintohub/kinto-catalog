@@ -3,5 +3,9 @@ auth=false
 redisPassword=changeme
 persistence.enabled=false
 persistence.size=10Gi
+<<<<<<< HEAD
+=======
+resources.enabled=true
+>>>>>>> 🐛 Fix all the calalog blocks
 resources.cpu=100m
 resources.memory=256Mi

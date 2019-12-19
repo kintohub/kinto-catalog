@@ -7,6 +7,10 @@ clusterAuth.enabled=false
 clusterAuth.user=nats_cluster
 clusterAuth.password=changeme
 clusterAuth.token=undefined
+<<<<<<< HEAD
+=======
+resources.enabled=true
+>>>>>>> 🐛 Fix all the calalog blocks
 resources.memory=512Mi
 resources.cpu=500m
 maxConnections=100

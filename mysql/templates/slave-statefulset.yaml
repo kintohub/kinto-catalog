@@ -93,7 +93,11 @@ spec:
         - name: MYSQL_REPLICATION_MODE
           value: "slave"
         - name: MYSQL_MASTER_HOST
+<<<<<<< HEAD
           value: {{ template "mysql.master.fullname" . }}
+=======
+          value: {{ .Values.kinto.alias }}
+>>>>>>> 🐛 Fix all the calalog blocks
         - name: MYSQL_MASTER_PORT_NUMBER
           value: "3306"
         - name: MYSQL_MASTER_ROOT_USER

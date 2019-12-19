@@ -1,3 +1,7 @@
 ** Please be patient while the chart is being deployed **
 
+<<<<<<< HEAD
   RabbitMQ can be accessed within the cluster on port {{ .Values.rabbitmqNodePort }} at {{ template "rabbitmq-ha.fullname" . }}
+=======
+  RabbitMQ can be accessed within the cluster on port {{ .Values.rabbitmqNodePort }} at {{ .Values.kinto.alias }}
+>>>>>>> 🐛 Fix all the calalog blocks
