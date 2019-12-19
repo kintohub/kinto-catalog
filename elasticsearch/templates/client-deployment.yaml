@@ -21,6 +21,11 @@ spec:
         app: {{ template "elasticsearch.name" . }}
         component: "{{ .Values.client.name }}"
         release: {{ .Release.Name }}
+        type: "cs"
+        alias: {{ .Values.kinto.alias }}
+        workspace: {{ .Values.kinto.workspace }}
+        blockName: {{ .Values.kinto.blockName }}
+        envId: {{ .Values.kinto.envId }}
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
         {{- if .Values.client.podAnnotations }}
@@ -116,8 +121,15 @@ spec:
         - name: {{ $key }}
           value: {{ $value | quote }}
         {{- end }}
+{{- if .Values.client.resources.enabled }}
         resources:
-{{ toYaml .Values.client.resources | indent 12 }}
+          requests:
+            memory: {{ .Values.client.resources.memory }}
+            cpu: {{ .Values.client.resources.cpu }}
+          limits:
+            memory: {{ .Values.client.resources.memory }}
+            cpu: {{ .Values.client.resources.cpu }}
+{{- end }}
         readinessProbe:
           httpGet:
             path: /_cluster/health

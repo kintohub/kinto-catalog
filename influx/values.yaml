@@ -1,5 +1,6 @@
 #kintohub
 kinto:
+  alias:
   workspace:
   envId:
   blockName:
@@ -23,6 +24,12 @@ livenessProbe:
 readinessProbe:
   probePath: "/ping"
 
+startupProbe:
+  enabled: false
+  probePath: "/ping"
+  # failureThreshold: 6
+  # periodSeconds: 5
+
 ## Specify a service type
 ## NodePort is default
 ## ref: http://kubernetes.io/docs/user-guide/services/
@@ -44,10 +51,6 @@ service:
 ##
 persistence:
   enabled: true
-  ## If true will use an existing PVC instead of creating one
-  # useExisting: false
-  ## Name of existing PVC to be used in the influx deployment
-  # name:
   ## influxdb data Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
   ## If set to "-", storageClassName: "", which disables dynamic provisioning
@@ -56,6 +59,7 @@ persistence:
   ##   GKE, AWS & OpenStack)
   ##
   # storageClass: "-"
+  annotations:
   accessMode: ReadWriteOnce
   size: 8Gi
 
@@ -63,7 +67,7 @@ persistence:
 ## Defaults indicated below
 ##
 setDefaultUser:
-  enabled: true
+  enabled: false
 
   ## Image of the container used for job
   ## Default: appropriate/curl:latest
@@ -96,13 +100,10 @@ setDefaultUser:
 
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-resources: {}
-#  requests:
-#    memory: 256Mi
-#    cpu: 0.1
-#  limits:
-#    memory: 16Gi
-#    cpu: 8
+resources:
+  enabled: true
+  memory: 512Mi
+  cpu: 0.5
 
 # Annotations to be added to InfuxDB pods
 podAnnotations: {}
@@ -149,7 +150,7 @@ env: {}
 
 ## Change InfluxDB configuration parameters below:
 ## Defaults are indicated
-## ref: https://docs.influxdata.com/influxdb/v1.1/administration/config/
+## ref: https://docs.influxdata.com/influxdb/v1.7/administration/config
 config:
   reporting_disabled: false
   storage_directory: /var/lib/influxdb
@@ -167,6 +168,7 @@ config:
     compact_full_write_cold_duration: 4h0m0s
     max_series_per_database: 1000000
     max_values_per_tag: 100000
+    index_version: inmem
     trace_logging_enabled: false
   coordinator:
     write_timeout: 10s
@@ -291,9 +293,9 @@ backup:
   annotations: {}
 
   ## Google Cloud Storage
-  ## Secret is expected to have key stored in `key.json` field
   # gcs:
   #    serviceAccountSecret: influxdb-backup-key
+  #    serviceAccountSecretKey: key.json
   #    destination: gs://bucket/influxdb
 
   ## Azure

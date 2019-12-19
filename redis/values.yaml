@@ -96,6 +96,11 @@ sysctlImage:
 ##
 # schedulerName:
 
+resources:
+  enabled: true
+  memory: 512Mi
+  cpu: 500m
+
 ## Redis specific configuration options
 redis:
   port: 6379
@@ -121,13 +126,6 @@ redis:
   # customConfig: |-
       # Define configuration here
 
-  resources: {}
-  #  requests:
-  #    memory: 200Mi
-  #    cpu: 100m
-  #  limits:
-  #    memory: 700Mi
-
 ## Sentinel specific configuration options
 sentinel:
   port: 26379
@@ -146,13 +144,6 @@ sentinel:
   ## specified then the sentinel.config above will be ignored.
   # customConfig: |-
       # Define configuration here
-
-  resources: {}
-  #  requests:
-  #    memory: 200Mi
-  #    cpu: 100m
-  #  limits:
-  #    memory: 200Mi
 
 #securityContext:
 #  runAsUser: 1000
@@ -241,7 +232,7 @@ auth: false
 ## Defines the key holding the redis password in existing secret.
 authKey: auth
 
-persistentVolume:
+persistence:
   enabled: true
   ## redis-ha data Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
@@ -258,7 +249,7 @@ persistentVolume:
 init:
   resources: {}
 
-# To use a hostPath for data, set persistentVolume.enabled to false
+# To use a hostPath for data, set persistence.enabled to false
 # and define hostPath.path.
 # Warning: this might overwrite existing folders on the host system!
 hostPath:

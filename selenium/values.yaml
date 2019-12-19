@@ -23,6 +23,11 @@ global:
   ## Specifying secret at a chart level will override the global option
   imagePullSecrets:
 
+resources:
+  enabled: true
+  memory: 512Mi
+  cpu: 500m
+
 hub:
   ## The repository and image
   ## ref: https://hub.docker.com/r/selenium/hub/
@@ -85,13 +90,6 @@ hub:
   ##   -Dcom.sun.management.jmxremote.ssl=false
   ## ref: http://openjdk.java.net/groups/jmx/
   # jmxPort: 4000
-
-  ## Configure resource requests and limits
-  ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-  resources:
-    limits:
-      cpu: ".5"
-      memory: "512Mi"
 
   ## Configure annotations on the hub pod
   podAnnotations: {}
@@ -213,13 +211,6 @@ chrome:
     - mountPath: /dev/shm
       name: dshm
 
-  ## Configure resource requests and limits
-  ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-  resources:
-    limits:
-      cpu: ".5"
-      memory: "1000Mi"
-
   ## Characteristics of the browser window
   # screenWidth: 1280
   # screenHeight: 1024
@@ -304,13 +295,6 @@ chromeDebug:
     - mountPath: /dev/shm
       name: dshm
 
-  ## Configure resource requests and limits
-  ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-  resources:
-    limits:
-      cpu: ".5"
-      memory: "1500Mi"
-
   ## Characteristics of the browser window
   # screenWidth: 1280
   # screenHeight: 1024
@@ -381,13 +365,6 @@ firefox:
   ## ref: http://openjdk.java.net/groups/jmx/
   # jmxPort: 4000
 
-  ## Configure resource requests and limits
-  ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-  resources:
-    limits:
-      cpu: ".5"
-      memory: "1000Mi"
-
   ## Characteristics of the browser window
   # screenWidth: 1280
   # screenHeight: 1024
@@ -457,13 +434,6 @@ firefoxDebug:
   ##   -Dcom.sun.management.jmxremote.ssl=false
   ## ref: http://openjdk.java.net/groups/jmx/
   # jmxPort: 4000
-
-  ## Configure resource requests and limits
-  ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-  resources:
-    limits:
-      cpu: ".5"
-      memory: "1500Mi"
 
   ## Characteristics of the browser window
   # screenWidth: 1280

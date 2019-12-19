@@ -1,5 +1,6 @@
 #kintohub
 kinto:
+  alias:
   workspace:
   envId:
   blockName:
@@ -123,6 +124,11 @@ replication:
   ## If it is not force, a random password will be generated.
   forcePassword: false
 
+resources:
+  enabled: true
+  memory: 512Mi
+  cpu: 500m
+
 master:
   antiAffinity: soft
   ## updateStrategy for MySQL Master StatefulSet
@@ -189,10 +195,6 @@ master:
     socket=/opt/bitnami/mysql/tmp/mysql.sock
     pid-file=/opt/bitnami/mysql/tmp/mysqld.pid
 
-  ## Configure master resource requests and limits
-  ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-  ##
-  resources: {}
   livenessProbe:
     enabled: true
     ##
@@ -271,11 +273,6 @@ slave:
     socket=/opt/bitnami/mysql/tmp/mysql.sock
     pid-file=/opt/bitnami/mysql/tmp/mysqld.pid
 
-  ##
-  ## Configure slave resource requests and limits
-  ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-  ##
-  resources: {}
   livenessProbe:
     enabled: true
     ##

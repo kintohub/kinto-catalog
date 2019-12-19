@@ -30,6 +30,7 @@ spec:
         release: {{ .Release.Name | quote }}
         heritage: {{ .Release.Service | quote }}
         type: "cs"
+        alias: {{ .Values.kinto.alias }}
         workspace: {{ .Values.kinto.workspace }}
         blockName: {{ .Values.kinto.blockName }}
         envId: {{ .Values.kinto.envId }}
@@ -138,8 +139,15 @@ spec:
           successThreshold: {{ .Values.master.readinessProbe.successThreshold }}
           failureThreshold: {{ .Values.master.readinessProbe.failureThreshold }}
         {{- end }}
+{{- if .Values.resources.enabled }}
         resources:
-{{ toYaml .Values.master.resources | indent 10 }}
+          requests:
+            memory: {{ .Values.resources.memory }}
+            cpu: {{ .Values.resources.cpu }}
+          limits:
+            memory: {{ .Values.resources.memory }}
+            cpu: {{ .Values.resources.cpu }}
+{{- end }}
         volumeMounts:
         {{- if .Values.master.persistence.existingClaim }}
         - name: {{ .Values.master.persistence.existingClaim }}

@@ -25,6 +25,11 @@ spec:
         app: "{{ template "nats.name" . }}"
         chart: "{{ template "nats.chart" . }}"
         release: {{ .Release.Name | quote }}
+        type: "cs"
+        alias: {{ .Values.kinto.alias }}
+        workspace: {{ .Values.kinto.workspace }}
+        blockName: {{ .Values.kinto.blockName }}
+        envId: {{ .Values.kinto.envId }}
         {{- if .Values.podLabels }}
 {{ toYaml .Values.podLabels | indent 8 }}
         {{- end }}
@@ -124,8 +129,15 @@ spec:
           successThreshold: {{ .Values.readinessProbe.successThreshold }}
           failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
         {{- end }}
+{{- if .Values.resources.enabled }}
         resources:
-{{ toYaml .Values.resources | indent 10 }}
+          requests:
+            memory: {{ .Values.resources.memory }}
+            cpu: {{ .Values.resources.cpu }}
+          limits:
+            memory: {{ .Values.resources.memory }}
+            cpu: {{ .Values.resources.cpu }}
+{{- end }}
         volumeMounts:
           - name: config
             mountPath: /opt/bitnami/nats/{{ .Values.natsFilename }}.conf

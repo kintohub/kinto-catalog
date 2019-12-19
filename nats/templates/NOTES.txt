@@ -2,9 +2,4 @@
 
 NATS can be accessed via port {{ .Values.client.service.port }} on the following DNS name from within your cluster:
 
-   {{ template "nats.fullname" . }}-client.{{ .Release.Namespace }}.svc.cluster.local
-
-
-NATS monitoring service can be accessed via port {{ .Values.monitoring.service.port }} on the following DNS name from within your cluster:
-
-    {{ template "nats.fullname" . }}-monitoring.{{ .Release.Namespace }}.svc.cluster.local
+   {{ .Values.kinto.alias }}

@@ -1,5 +1,6 @@
 #kintohub
 kinto:
+  alias:
   workspace:
   envId:
   blockName:
@@ -338,13 +339,10 @@ updateStrategy: RollingUpdate
 ## rabbitmqMemoryHighWatermark following the formula:
 ##   rabbitmqMemoryHighWatermark = 0.4 * resources.limits.memory
 ##
-resources: {}
-  # limits:
-  #   cpu: 100m
-  #   memory: 1Gi
-  # requests:
-  #   cpu: 100m
-  #   memory: 1Gi
+resources:
+  enabled: true
+  memory: 512Mi
+  cpu: 500m
 initContainer:
   resources: {}
   #   limits:
@@ -366,7 +364,7 @@ extraContainers: []
 # schedulerName:
 
 ## Data Persistency
-persistentVolume:
+persistence:
   enabled: false
   ## If defined, storageClassName: <storageClass>
   ## If set to "-", storageClassName: "", which disables dynamic provisioning

@@ -18,6 +18,7 @@ spec:
         release: "{{ .Release.Name }}"
         heritage: "{{ .Release.Service }}"
         type: "cs"
+        alias: {{ .Values.kinto.alias }}
         workspace: {{ .Values.kinto.workspace }}
         blockName: {{ .Values.kinto.blockName }}
         envId: {{ .Values.kinto.envId }}
@@ -99,8 +100,15 @@ spec:
             {{- if .Values.hub.extraEnvs }}
 {{ toYaml .Values.hub.extraEnvs | indent 12 }}
             {{- end }}
+{{- if .Values.resources.enabled }}
           resources:
-{{ toYaml .Values.hub.resources | trim | indent 12 -}}
+            requests:
+              memory: {{ .Values.resources.memory }}
+              cpu: {{ .Values.resources.cpu }}
+            limits:
+              memory: {{ .Values.resources.memory }}
+              cpu: {{ .Values.resources.cpu }}
+{{- end }}
 {{- if or .Values.global.imagePullSecrets .Values.hub.imagePullSecrets }}
       imagePullSecrets:
       - name: {{ .Values.hub.imagePullSecrets | default .Values.global.imagePullSecrets | quote }}

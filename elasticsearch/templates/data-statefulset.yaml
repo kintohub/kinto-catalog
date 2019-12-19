@@ -21,6 +21,11 @@ spec:
         app: {{ template "elasticsearch.name" . }}
         component: "{{ .Values.data.name }}"
         release: {{ .Release.Name }}
+        type: "cs"
+        alias: {{ .Values.kinto.alias }}
+        workspace: {{ .Values.kinto.workspace }}
+        blockName: {{ .Values.kinto.blockName }}
+        envId: {{ .Values.kinto.envId }}
         role: data
 {{- if or .Values.data.podAnnotations (eq .Values.data.updateStrategy.type "RollingUpdate") }}
       annotations:
@@ -154,8 +159,15 @@ spec:
         - containerPort: 9200
           name: http
 {{ end }}
+{{- if .Values.data.resources.enabled }}
         resources:
-{{ toYaml .Values.data.resources | indent 12 }}
+          requests:
+            memory: {{ .Values.data.resources.memory }}
+            cpu: {{ .Values.data.resources.cpu }}
+          limits:
+            memory: {{ .Values.data.resources.memory }}
+            cpu: {{ .Values.data.resources.cpu }}
+{{- end }}
         readinessProbe:
 {{ toYaml .Values.data.readinessProbe | indent 10 }}
         volumeMounts:

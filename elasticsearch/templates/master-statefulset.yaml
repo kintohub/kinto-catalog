@@ -21,6 +21,11 @@ spec:
         app: {{ template "elasticsearch.name" . }}
         component: "{{ .Values.master.name }}"
         release: {{ .Release.Name }}
+        type: "cs"
+        alias: {{ .Values.kinto.alias }}
+        workspace: {{ .Values.kinto.workspace }}
+        blockName: {{ .Values.kinto.blockName }}
+        envId: {{ .Values.kinto.envId }}
         role: master
 {{- if or .Values.master.podAnnotations (eq .Values.master.updateStrategy.type "RollingUpdate") }}
       annotations:
@@ -148,8 +153,15 @@ spec:
         - name: {{ $key }}
           value: {{ $value | quote }}
         {{- end }}
+{{- if .Values.master.resources.enabled }}
         resources:
-{{ toYaml .Values.master.resources | indent 12 }}
+          requests:
+            memory: {{ .Values.master.resources.memory }}
+            cpu: {{ .Values.master.resources.cpu }}
+          limits:
+            memory: {{ .Values.master.resources.memory }}
+            cpu: {{ .Values.master.resources.cpu }}
+{{- end }}
         readinessProbe:
 {{ toYaml .Values.master.readinessProbe | indent 10 }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

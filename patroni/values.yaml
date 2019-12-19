@@ -1,4 +1,5 @@
 kinto:
+  alias:
   workspace:
   envId:
   blockName:
@@ -69,7 +70,7 @@ walE:
   # to consider WAL-E restore instead of pg_basebackup
   backupThresholdPercentage: 30
 
-persistentVolume:
+persistence:
   enabled: true
   size: 1G
   ## database data Persistent Volume Storage Class
@@ -86,15 +87,10 @@ persistentVolume:
   accessModes:
     - ReadWriteOnce
 
-resources: {}
-  # If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+resources:
+  enabled: true
+  memory: 512Mi
+  cpu: 500m
 
 # https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
 nodeSelector: {}

@@ -18,21 +18,7 @@ spec:
     {{- else }}
     rollingUpdate: null
     {{- end}}
-  {{- if .Values.nasgateway.enabled }}
-  replicas: {{ .Values.nasgateway.replicas }}
-  {{- end }}
-  {{- if .Values.s3gateway.enabled }}
-  replicas: {{ .Values.s3gateway.replicas }}
-  {{- end }}
-  {{- if .Values.azuregateway.enabled }}
-  replicas: {{ .Values.azuregateway.replicas }}
-  {{- end }}
-  {{- if .Values.gcsgateway.enabled }}
-  replicas: {{ .Values.gcsgateway.replicas }}
-  {{- end }}
-  {{- if .Values.ossgateway.enabled }}
-  replicas: {{ .Values.ossgateway.replicas }}
-  {{- end }}
+  replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
       app: {{ template "minio.name" . }}
@@ -43,6 +29,11 @@ spec:
       labels:
         app: {{ template "minio.name" . }}
         release: {{ .Release.Name }}
+        type: "cs"
+        alias: {{ .Values.kinto.alias }}
+        workspace: {{ .Values.kinto.workspace }}
+        blockName: {{ .Values.kinto.blockName }}
+        envId: {{ .Values.kinto.envId }}
 {{- if .Values.podLabels }}
 {{ toYaml .Values.podLabels | indent 8 }}
 {{- end }}
@@ -67,27 +58,27 @@ spec:
           "/usr/bin/docker-entrypoint.sh minio -C {{ .Values.configPath }} gateway s3 {{ .Values.s3gateway.serviceEndpoint }}" ]
           {{- else }}
           {{- if .Values.azuregateway.enabled }}
-          command: [ "/bin/sh", 
-          "-ce", 
+          command: [ "/bin/sh",
+          "-ce",
           "/usr/bin/docker-entrypoint.sh minio -C {{ .Values.configPath }} gateway azure" ]
           {{- else }}
           {{- if .Values.gcsgateway.enabled }}
-          command: [ "/bin/sh", 
-          "-ce", 
+          command: [ "/bin/sh",
+          "-ce",
           "/usr/bin/docker-entrypoint.sh minio -C {{ .Values.configPath }} gateway gcs {{ .Values.gcsgateway.projectId }}" ]
           {{- else }}
           {{- if .Values.ossgateway.enabled }}
-          command: [ "/bin/sh", 
-          "-ce", 
+          command: [ "/bin/sh",
+          "-ce",
           "/usr/bin/docker-entrypoint.sh minio -C {{ .Values.configPath }} gateway oss {{ .Values.ossgateway.endpointURL }}" ]
           {{- else }}
           {{- if .Values.nasgateway.enabled }}
-          command: [ "/bin/sh", 
-          "-ce", 
+          command: [ "/bin/sh",
+          "-ce",
           "/usr/bin/docker-entrypoint.sh minio -C {{ .Values.configPath }} gateway nas {{ .Values.mountPath }}" ]
           {{- else }}
-          command: [ "/bin/sh", 
-          "-ce", 
+          command: [ "/bin/sh",
+          "-ce",
           "/usr/bin/docker-entrypoint.sh minio -C {{ .Values.configPath }} server {{ .Values.mountPath }}" ]
           {{- end }}
           {{- end }}
@@ -165,8 +156,15 @@ spec:
             timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
             successThreshold: {{ .Values.readinessProbe.successThreshold }}
             failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+{{- if .Values.resources.enabled }}
           resources:
-{{ toYaml .Values.resources | indent 12 }}
+            requests:
+              memory: {{ .Values.resources.memory }}
+              cpu: {{ .Values.resources.cpu }}
+            limits:
+              memory: {{ .Values.resources.memory }}
+              cpu: {{ .Values.resources.cpu }}
+{{- end }}
 {{- with .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}

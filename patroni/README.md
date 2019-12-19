@@ -95,12 +95,12 @@ The following table lists the configurable parameters of the patroni chart and t
 | `affinityTemplate`                | A template string to use to generate the affinity settings | Anti-affinity preferred on hostname  |
 | `affinity`                        | Affinity settings. Overrides `affinityTemplate` if set. | `{}`                                    |
 | `schedulerName`                   | Alternate scheduler name                    | `nil`                                               |
-| `persistentVolume.accessModes`    | Persistent Volume access modes              | `[ReadWriteOnce]`                                   |
-| `persistentVolume.annotations`    | Annotations for Persistent Volume Claim`    | `{}`                                                |
-| `persistentVolume.mountPath`      | Persistent Volume mount root path           | `/home/postgres/pgdata`                             |
-| `persistentVolume.size`           | Persistent Volume size                      | `2Gi`                                               |
-| `persistentVolume.storageClass`   | Persistent Volume Storage Class             | `volume.alpha.kubernetes.io/storage-class: default` |
-| `persistentVolume.subPath`        | Subdirectory of Persistent Volume to mount  | `""`                                                |
+| `persistence.accessModes`    | Persistent Volume access modes              | `[ReadWriteOnce]`                                   |
+| `persistence.annotations`    | Annotations for Persistent Volume Claim`    | `{}`                                                |
+| `persistence.mountPath`      | Persistent Volume mount root path           | `/home/postgres/pgdata`                             |
+| `persistence.size`           | Persistent Volume size                      | `2Gi`                                               |
+| `persistence.storageClass`   | Persistent Volume Storage Class             | `volume.alpha.kubernetes.io/storage-class: default` |
+| `persistence.subPath`        | Subdirectory of Persistent Volume to mount  | `""`                                                |
 | `rbac.create`                     | Create required role and rolebindings       | `true`                                              |
 | `serviceAccount.create`           | If true, create a new service account	      | `true`                                              |
 | `serviceAccount.name`             | Service account to be used. If not set and `serviceAccount.create` is `true`, a name is generated using the fullname template | `nil` |

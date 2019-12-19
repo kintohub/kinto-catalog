@@ -2,6 +2,4 @@ The elasticsearch cluster has been installed.
 
 Elasticsearch can be accessed:
 
-  * Within your cluster, at the following DNS name at port 9200:
-
-    {{ template "elasticsearch.client.fullname" . }}
+    {{ .Values.kinto.alias }}:9200

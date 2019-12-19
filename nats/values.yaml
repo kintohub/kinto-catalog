@@ -1,5 +1,6 @@
 #kintohub
 kinto:
+  alias:
   workspace:
   envId:
   blockName:
@@ -104,16 +105,10 @@ deployment:
   # maxSurge: 25%
   # maxUnavailable: 25%
 
-## Configure resource requests and limits
-## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-##
-resources: {}
-# limits:
-#   cpu: 500m
-#   memory: 512Mi
-# requests:
-#   cpu: 100m
-#   memory: 256Mi
+resources:
+  enabled: true
+  memory: 512Mi
+  cpu: 500m
 
 ## Configure extra options for liveness and readiness probes
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes)

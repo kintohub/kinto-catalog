@@ -30,6 +30,7 @@ spec:
         release: {{ .Release.Name }}
         app: {{ template "redis-ha.name" . }}
         type: "cs"
+        alias: {{ .Values.kinto.alias }}
         workspace: {{ .Values.kinto.workspace }}
         blockName: {{ .Values.kinto.blockName }}
         envId: {{ .Values.kinto.envId }}
@@ -150,7 +151,7 @@ spec:
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         command:
-        - redis-server 
+        - redis-server
         args:
         - /data/conf/redis.conf
         env:
@@ -169,8 +170,15 @@ spec:
           tcpSocket:
             port: {{ .Values.redis.port }}
           initialDelaySeconds: 15
+{{- if .Values.resources.enabled }}
         resources:
-{{ toYaml .Values.redis.resources | indent 10 }}
+          requests:
+            memory: {{ .Values.resources.memory }}
+            cpu: {{ .Values.resources.cpu }}
+          limits:
+            memory: {{ .Values.resources.memory }}
+            cpu: {{ .Values.resources.cpu }}
+{{- end }}
         ports:
         - name: redis
           containerPort: {{ .Values.redis.port }}
@@ -200,8 +208,15 @@ spec:
           tcpSocket:
             port: {{ .Values.sentinel.port }}
           initialDelaySeconds: 15
+{{- if .Values.resources.enabled }}
         resources:
-{{ toYaml .Values.sentinel.resources | indent 10 }}
+          requests:
+            memory: {{ .Values.resources.memory }}
+            cpu: {{ .Values.resources.cpu }}
+          limits:
+            memory: {{ .Values.resources.memory }}
+            cpu: {{ .Values.resources.cpu }}
+{{- end }}
         ports:
           - name: sentinel
             containerPort: {{ .Values.sentinel.port }}
@@ -255,27 +270,27 @@ spec:
         hostPath:
           path: /sys
       {{- end }}
-{{- if .Values.persistentVolume.enabled }}
+{{- if .Values.persistence.enabled }}
   volumeClaimTemplates:
   - metadata:
       name: data
       annotations:
-      {{- range $key, $value := .Values.persistentVolume.annotations }}
+      {{- range $key, $value := .Values.persistence.annotations }}
         {{ $key }}: {{ $value }}
       {{- end }}
     spec:
       accessModes:
-      {{- range .Values.persistentVolume.accessModes }}
+      {{- range .Values.persistence.accessModes }}
         - {{ . | quote }}
       {{- end }}
       resources:
         requests:
-          storage: {{ .Values.persistentVolume.size | quote }}
-    {{- if .Values.persistentVolume.storageClass }}
-    {{- if (eq "-" .Values.persistentVolume.storageClass) }}
+          storage: {{ .Values.persistence.size | quote }}
+    {{- if .Values.persistence.storageClass }}
+    {{- if (eq "-" .Values.persistence.storageClass) }}
       storageClassName: ""
     {{- else }}
-      storageClassName: "{{ .Values.persistentVolume.storageClass }}"
+      storageClassName: "{{ .Values.persistence.storageClass }}"
     {{- end }}
     {{- end }}
 {{- else if .Values.hostPath.path }}

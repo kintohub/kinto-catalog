@@ -1,5 +1,5 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: apps/v1
+kind: StatefulSet
 metadata:
   name: "{{ template "influxdb.fullname" . }}"
   labels:
@@ -9,12 +9,17 @@ metadata:
     heritage: "{{ .Release.Service }}"
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: {{ template "influxdb.fullname" . }}
+  serviceName: "{{ template "influxdb.fullname" . }}"
   template:
     metadata:
       labels:
         app: {{ template "influxdb.fullname" . }}
         release: "{{ .Release.Name }}"
         type: "cs"
+        alias: {{ .Values.kinto.alias }}
         workspace: {{ .Values.kinto.workspace }}
         blockName: {{ .Values.kinto.blockName }}
         envId: {{ .Values.kinto.envId }}
@@ -33,8 +38,15 @@ spec:
       - name: {{ template "influxdb.fullname" . }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+{{- if .Values.resources.enabled }}
         resources:
-{{ toYaml .Values.resources | indent 10 }}
+          requests:
+            memory: {{ .Values.resources.memory }}
+            cpu: {{ .Values.resources.cpu }}
+          limits:
+            memory: {{ .Values.resources.memory }}
+            cpu: {{ .Values.resources.cpu }}
+{{- end }}
         ports:
         - name: api
           containerPort: {{ .Values.config.http.bind_address }}
@@ -74,8 +86,16 @@ spec:
             port: api
           initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds | default 5 }}
           timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds | default 1 }}
+        {{- if .Values.startupProbe.enabled }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.startupProbe.probePath }}
+            port: api
+          failureThreshold: {{ .Values.startupProbe.failureThreshold | default 6 }}
+          periodSeconds: {{ .Values.startupProbe.periodSeconds | default 5 }}
+        {{- end }}
         volumeMounts:
-        - name: data
+        - name: {{ template "influxdb.fullname" . }}-data
           mountPath: {{ .Values.config.storage_directory }}
         - name: config
           mountPath: /etc/influxdb
@@ -84,18 +104,6 @@ spec:
           mountPath: /docker-entrypoint-initdb.d
         {{- end }}
       volumes:
-      - name: data
-      {{- if .Values.persistence.enabled }}
-        {{- if not (empty .Values.persistence.name) }}
-        persistentVolumeClaim:
-          claimName: {{ .Values.persistence.name }}
-        {{- else }}
-        persistentVolumeClaim:
-          claimName: {{ template "influxdb.fullname" . }}
-        {{- end }}
-      {{- else }}
-        emptyDir: {}
-      {{- end }}
       - name: config
         configMap:
           name: {{ template "influxdb.fullname" . }}
@@ -103,6 +111,10 @@ spec:
       - name: init
         configMap:
           name: {{ template "influxdb.fullname" . }}-init
+      {{- end }}
+      {{- if (not .Values.persistence.enabled ) }}
+      - name: {{ template "influxdb.fullname" . }}-data
+        emptyDir: {}
       {{- end }}
     {{- if .Values.schedulerName }}
       schedulerName: "{{ .Values.schedulerName }}"
@@ -119,3 +131,25 @@ spec:
       tolerations:
 {{ toYaml .Values.tolerations | indent 8 }}
       {{- end }}
+{{- if .Values.persistence.enabled }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ template "influxdb.fullname" . }}-data
+        annotations:
+        {{- range $key, $value := .Values.persistence.annotations }}
+          {{ $key }}: "{{ $value }}"
+        {{- end }}
+      spec:
+        accessModes:
+          - {{ .Values.persistence.accessMode | quote}}
+        resources:
+          requests:
+            storage: {{ .Values.persistence.size | quote }}
+      {{- if .Values.persistence.storageClass }}
+      {{- if (eq "-" .Values.persistence.storageClass) }}
+        storageClassName: ""
+      {{- else }}
+        storageClassName: "{{ .Values.persistence.storageClass }}"
+      {{- end }}
+      {{- end }}
+{{- end }}

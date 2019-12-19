@@ -1,4 +1,5 @@
 kinto:
+  alias:
   workspace:
   envId:
   blockName:
@@ -84,13 +85,11 @@ init:
   resources: {}
   timeout: 900
 
-resources: {}
-# limits:
-#   cpu: 500m
-#   memory: 512Mi
-# requests:
-#   cpu: 100m
-#   memory: 256Mi
+resources:
+  enabled: true
+  memory: 512Mi
+  cpu: 500m
+
 
 ## Node selector
 ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
@@ -104,7 +103,7 @@ extraLabels: {}
 
 # priorityClassName: ""
 
-persistentVolume:
+persistence:
   enabled: true
   ## mongodb-replicaset data Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>

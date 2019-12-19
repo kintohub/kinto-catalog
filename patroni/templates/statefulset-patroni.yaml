@@ -23,6 +23,7 @@ spec:
         app: {{ template "patroni.fullname" . }}
         release: {{ .Release.Name }}
         type: cs
+        alias: {{ .Values.kinto.alias }}
         workspace: {{ .Values.kinto.workspace }}
         blockName: {{ .Values.kinto.blockName }}
         envId: {{ .Values.kinto.envId }}
@@ -122,7 +123,7 @@ spec:
           value: ""
         {{- end }}
         - name: PGROOT
-          value: "{{ .Values.persistentVolume.mountPath }}/pgroot"
+          value: "{{ .Values.persistence.mountPath }}/pgroot"
         - name: POD_NAMESPACE
           valueFrom:
             fieldRef:
@@ -139,8 +140,8 @@ spec:
         - containerPort: 5432
         volumeMounts:
         - name: storage-volume
-          mountPath: "{{ .Values.persistentVolume.mountPath }}"
-          subPath: "{{ .Values.persistentVolume.subPath }}"
+          mountPath: "{{ .Values.persistence.mountPath }}"
+          subPath: "{{ .Values.persistence.subPath }}"
         - mountPath: /etc/patroni
           name: patroni-config
           readOnly: true
@@ -151,8 +152,15 @@ spec:
           readOnly: true
         {{- end }}
         {{- end }}
+{{- if .Values.resources.enabled }}
         resources:
-{{ toYaml .Values.resources | indent 10 }}
+          requests:
+            memory: {{ .Values.resources.memory }}
+            cpu: {{ .Values.resources.cpu }}
+          limits:
+            memory: {{ .Values.resources.memory }}
+            cpu: {{ .Values.resources.cpu }}
+{{- end }}
     {{- with .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}
@@ -182,17 +190,17 @@ spec:
           secretName: {{ .Values.walE.kubernetesSecret }}
       {{- end }}
       {{- end }}
-      {{- if not .Values.persistentVolume.enabled }}
+      {{- if not .Values.persistence.enabled }}
       - name: storage-volume
         emptyDir: {}
       {{- end }}
-  {{- if .Values.persistentVolume.enabled }}
+  {{- if .Values.persistence.enabled }}
   volumeClaimTemplates:
     - metadata:
         name: storage-volume
         annotations:
-        {{- if .Values.persistentVolume.annotations }}
-{{ toYaml .Values.persistentVolume.annotations | indent 8 }}
+        {{- if .Values.persistence.annotations }}
+{{ toYaml .Values.persistence.annotations | indent 8 }}
         {{- end }}
         labels:
           app: {{ template "patroni.fullname" . }}
@@ -200,15 +208,15 @@ spec:
           heritage: {{ .Release.Service }}
       spec:
         accessModes:
-{{ toYaml .Values.persistentVolume.accessModes | indent 8 }}
+{{ toYaml .Values.persistence.accessModes | indent 8 }}
         resources:
           requests:
-            storage: "{{ .Values.persistentVolume.size }}"
-      {{- if .Values.persistentVolume.storageClass }}
-      {{- if (eq "-" .Values.persistentVolume.storageClass) }}
+            storage: "{{ .Values.persistence.size }}"
+      {{- if .Values.persistence.storageClass }}
+      {{- if (eq "-" .Values.persistence.storageClass) }}
         storageClassName: ""
       {{- else }}
-        storageClassName: "{{ .Values.persistentVolume.storageClass }}"
+        storageClassName: "{{ .Values.persistence.storageClass }}"
       {{- end }}
       {{- end }}
   {{- end }}

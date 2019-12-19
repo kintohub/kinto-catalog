@@ -54,11 +54,11 @@ The following table lists the configurable parameters of the mongodb chart and t
 | `securityContext.runAsUser`         | User ID for the container                                                 | `999`                                               |
 | `securityContext.runAsNonRoot`      |                                                                           | `true`                                              |
 | `resources`                         | Pod resource requests and limits                                          | `{}`                                                |
-| `persistentVolume.enabled`          | If `true`, persistent volume claims are created                           | `true`                                              |
-| `persistentVolume.storageClass`     | Persistent volume storage class                                           | ``                                                  |
-| `persistentVolume.accessModes`      | Persistent volume access modes                                            | `[ReadWriteOnce]`                                   |
-| `persistentVolume.size`             | Persistent volume size                                                    | `10Gi`                                              |
-| `persistentVolume.annotations`      | Persistent volume annotations                                             | `{}`                                                |
+| `persistence.enabled`          | If `true`, persistent volume claims are created                           | `true`                                              |
+| `persistence.storageClass`     | Persistent volume storage class                                           | ``                                                  |
+| `persistence.accessModes`      | Persistent volume access modes                                            | `[ReadWriteOnce]`                                   |
+| `persistence.size`             | Persistent volume size                                                    | `10Gi`                                              |
+| `persistence.annotations`      | Persistent volume annotations                                             | `{}`                                                |
 | `terminationGracePeriodSeconds`     | Duration in seconds the pod needs to terminate gracefully                 | `30`                                                |
 | `tls.enabled`                       | Enable MongoDB TLS support including authentication                       | `false`                                             |
 | `tls.cacert`                        | The CA certificate used for the members                                   | Our self signed CA certificate                      |

@@ -1,4 +1,5 @@
 kinto:
+  alias:
   workspace:
   envId:
   blockName:
@@ -123,7 +124,7 @@ client:
 ## (dict) If specified, apply these annotations to the client service
 #  serviceAnnotations:
 #    example: client-svc-foo
-  heapSize: "512m"
+  heapSize: "256m"
   # additionalJavaOpts: "-XX:MaxRAM=512m"
   antiAffinity: "soft"
   nodeAffinity: {}
@@ -138,12 +139,9 @@ client:
     #   cpu: "25m"
     #   memory: "128Mi"
   resources:
-    limits:
-      cpu: "1"
-      # memory: "1024Mi"
-    requests:
-      cpu: "25m"
-      memory: "512Mi"
+    enabled: true
+    memory: 512Mi
+    cpu: 500m
   priorityClassName: ""
   ## (dict) If specified, apply these annotations to each client Pod
   # podAnnotations:
@@ -177,10 +175,10 @@ master:
   name: master
   exposeHttp: false
   replicas: 3
-  heapSize: "512m"
+  heapSize: "256m"
   # additionalJavaOpts: "-XX:MaxRAM=512m"
   persistence:
-    enabled: true
+    enabled: false
     accessMode: ReadWriteOnce
     name: data
     size: "4Gi"
@@ -203,12 +201,9 @@ master:
     #   cpu: "25m"
     #   memory: "128Mi"
   resources:
-    limits:
-      cpu: "1"
-      # memory: "1024Mi"
-    requests:
-      cpu: "25m"
-      memory: "512Mi"
+    enabled: true
+    memory: 512Mi
+    cpu: 500m
   priorityClassName: ""
   ## (dict) If specified, apply these annotations to each master Pod
   # podAnnotations:
@@ -231,10 +226,10 @@ data:
   name: data
   exposeHttp: false
   replicas: 2
-  heapSize: "1536m"
+  heapSize: "512m"
   # additionalJavaOpts: "-XX:MaxRAM=1536m"
   persistence:
-    enabled: true
+    enabled: false
     accessMode: ReadWriteOnce
     name: data
     size: "30Gi"
@@ -257,12 +252,9 @@ data:
     #   cpu: "25m"
     #   memory: "128Mi"
   resources:
-    limits:
-      cpu: "1"
-      # memory: "2048Mi"
-    requests:
-      cpu: "25m"
-      memory: "1536Mi"
+    enabled: true
+    memory: 1Gi
+    cpu: 500m
   priorityClassName: ""
   ## (dict) If specified, apply these annotations to each data Pod
   # podAnnotations:

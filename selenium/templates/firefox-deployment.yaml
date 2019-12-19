@@ -19,6 +19,7 @@ spec:
         release: "{{ .Release.Name }}"
         heritage: "{{ .Release.Service }}"
         type: "cs"
+        alias: {{ .Values.kinto.alias }}
         workspace: {{ .Values.kinto.workspace }}
         blockName: {{ .Values.kinto.blockName }}
         envId: {{ .Values.kinto.envId }}
@@ -89,8 +90,15 @@ spec:
             {{- if .Values.firefox.extraEnvs }}
 {{ toYaml .Values.firefox.extraEnvs | indent 12 }}
             {{- end }}
+{{- if .Values.resources.enabled }}
           resources:
-{{ toYaml .Values.firefox.resources | indent 12 }}
+            requests:
+              memory: {{ .Values.resources.memory }}
+              cpu: {{ .Values.resources.cpu }}
+            limits:
+              memory: {{ .Values.resources.memory }}
+              cpu: {{ .Values.resources.cpu }}
+{{- end }}
 {{- if or .Values.global.imagePullSecrets .Values.firefox.imagePullSecrets }}
       imagePullSecrets:
       - name: {{ .Values.firefox.imagePullSecrets | default .Values.global.imagePullSecrets | quote }}

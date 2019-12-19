@@ -1,7 +1,7 @@
 replicaCount=1
-credentials.superuser=tea
-credentials.admin=cola
-credentials.standby=pinacolada
+definitions.users=
+rabbitmqMemoryHighWatermark=256MB
+rabbitmqMemoryHighWatermarkType=absolute
 persistence.enabled=false
 persistence.size=1G
 resources.enabled=true
