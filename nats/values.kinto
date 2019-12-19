@@ -8,9 +8,12 @@ clusterAuth.user=nats_cluster
 clusterAuth.password=changeme
 clusterAuth.token=undefined
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 resources.enabled=true
 >>>>>>> 🐛 Fix all the calalog blocks
+=======
+>>>>>>> 🐛 Configure all values.kinto files
 resources.memory=512Mi
 resources.cpu=500m
 maxConnections=100
