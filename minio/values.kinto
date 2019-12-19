@@ -4,7 +4,6 @@ secretKey=changeme
 replicas=1
 persistence.enabled=false
 persistence.size=8Gi
-resources.enabled=true
 resources.memory=256Mi
 resources.cpu=250m
 s3gateway.enabled=false

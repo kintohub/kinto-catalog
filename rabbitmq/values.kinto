@@ -4,6 +4,5 @@ rabbitmqMemoryHighWatermark=256MB
 rabbitmqMemoryHighWatermarkType=absolute
 persistence.enabled=false
 persistence.size=1G
-resources.enabled=true
 resources.cpu=500m
 resources.memory=512Mi

@@ -7,7 +7,6 @@ clusterAuth.enabled=false
 clusterAuth.user=nats_cluster
 clusterAuth.password=changeme
 clusterAuth.token=undefined
-resources.enabled=true
 resources.memory=512Mi
 resources.cpu=500m
 maxConnections=100

@@ -1,6 +1,5 @@
 persistence.enabled=false
 persistence.size=8Gi
-resources.enabled=true
 resources.memory=512Mi
 resources.cpu=500m
 setDefaultUser.enabled=false
