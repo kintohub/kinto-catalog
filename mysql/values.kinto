@@ -1,0 +1,10 @@
+replication.enabled=false
+slave.replicas=1
+persistence.enabled=false
+persistence.size=10Gi
+resources.memory=256Mi
+resources.cpu=250m
+root.password=changeme
+db.user=admin
+db.password=changeme
+db.name=defaultdb

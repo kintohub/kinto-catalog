@@ -1,0 +1,17 @@
+client.replicas=1
+client.heapSize=256m
+client.resources.cpu=1
+client.resources.memory=512Mi
+cluster.env.MINIMUM_MASTER_NODES=2
+master.replicas=2
+master.heapSize=256m
+master.persistence.enabled=false
+master.persistence.size=4Gi
+master.resources.memory=512Mi
+master.resources.cpu=500m
+data.replicas=1
+data.heapSize=512m
+data.persistence.enabled=false
+data.persistence.size=4Gi
+data.resources.cpu=500m
+data.resourcesmemory=1024Mi

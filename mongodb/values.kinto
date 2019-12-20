@@ -1,0 +1,10 @@
+replicas=1
+replicaSetName=rs0
+persistence.enabled=false
+persistence.size=10Gi
+resources.memory=512Mi
+resources.cpu=500m
+auth.enabled=false
+auth.adminUser=admin
+auth.adminPassword=changeme
+auth.key=undefined

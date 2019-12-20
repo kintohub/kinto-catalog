@@ -1,0 +1,7 @@
+persistence.enabled=false
+persistence.size=8Gi
+resources.memory=512Mi
+resources.cpu=500m
+setDefaultUser.enabled=false
+setDefaultUser.user.username=admin
+setDefaultUser.user.password=changeme

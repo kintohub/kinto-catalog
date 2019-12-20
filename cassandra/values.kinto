@@ -1,0 +1,7 @@
+persistence.enabled=false
+persistence.size=10Gi
+config.cluster_size=1
+config.max_heap_size=512M
+config.heap_new_size=512M
+resources.memory=1024Mi
+resources.cpu=500m

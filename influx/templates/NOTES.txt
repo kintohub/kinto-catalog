@@ -1,0 +1,3 @@
+InfluxDB can be accessed via port {{ .Values.config.http.bind_address }} on the following DNS name:
+
+- http://{{ .Values.kinto.alias }}:{{ .Values.config.http.bind_address }}

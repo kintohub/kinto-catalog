@@ -1,0 +1,8 @@
+Mysql is ready to be accessed through the following DNS names
+
+Services:
+
+  echo Master: {{ .Values.kinto.alias }}:{{ .Values.service.port }}
+{{- if .Values.replication.enabled }}
+  echo Slave:  {{ template "mysql.slave.fullname" . }}:{{ .Values.service.port }}
+{{- end }}

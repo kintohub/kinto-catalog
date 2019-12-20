@@ -1,0 +1,6 @@
+chrome.enabled=false
+chromeDebug.enabled=false
+firefox.enabled=false
+firefoxDebug.enabled=false
+resources.cpu=500m
+resources.memory=512Mi

@@ -1,0 +1,15 @@
+replicaCount=1
+auth.enabled=false
+auth.user=nats_user
+auth.password=changeme
+auth.token=undefined
+clusterAuth.enabled=false
+clusterAuth.user=nats_cluster
+clusterAuth.password=changeme
+clusterAuth.token=undefined
+resources.memory=512Mi
+resources.cpu=500m
+maxConnections=100
+maxControlLine=512
+maxPayload=65536
+writeDeadline=2s
