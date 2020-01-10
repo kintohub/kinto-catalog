@@ -14,4 +14,4 @@ data.heapSize=512m
 data.persistence.enabled=false
 data.persistence.size=4Gi
 data.resources.cpu=500m
-data.resourcesmemory=1024Mi
+data.resources.memory=1024Mi
