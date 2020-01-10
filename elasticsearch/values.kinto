@@ -36,5 +36,9 @@ data.resources.enabled=true
 =======
 >>>>>>> 🐛 Configure all values.kinto files
 data.resources.cpu=500m
+<<<<<<< HEAD
 data.resourcesmemory=1024Mi
 >>>>>>> 🐛 Fix all the calalog blocks
+=======
+data.resources.memory=1024Mi
+>>>>>>> 🐛 Fix (NO_TICKET): Patroni
