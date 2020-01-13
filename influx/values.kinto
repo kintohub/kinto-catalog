@@ -1,12 +1,6 @@
 persistence.enabled=false
 persistence.size=8Gi
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 resources.enabled=true
->>>>>>> 🐛 Fix all the calalog blocks
-=======
->>>>>>> 🐛 Configure all values.kinto files
 resources.memory=512Mi
 resources.cpu=500m
 setDefaultUser.enabled=false

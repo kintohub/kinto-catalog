@@ -1,12 +1,6 @@
 client.replicas=1
 client.heapSize=256m
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 client.resources.enabled=true
->>>>>>> 🐛 Fix all the calalog blocks
-=======
->>>>>>> 🐛 Configure all values.kinto files
 client.resources.cpu=1
 client.resources.memory=512Mi
 cluster.env.MINIMUM_MASTER_NODES=2
@@ -14,31 +8,13 @@ master.replicas=2
 master.heapSize=256m
 master.persistence.enabled=false
 master.persistence.size=4Gi
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 master.resources.enabled=true
->>>>>>> 🐛 Fix all the calalog blocks
-=======
->>>>>>> 🐛 Configure all values.kinto files
 master.resources.memory=512Mi
 master.resources.cpu=500m
 data.replicas=1
 data.heapSize=512m
 data.persistence.enabled=false
 data.persistence.size=4Gi
-<<<<<<< HEAD
-<<<<<<< HEAD
-data.resources.cpu=500m
-data.resources.memory=1024Mi
-=======
 data.resources.enabled=true
-=======
->>>>>>> 🐛 Configure all values.kinto files
 data.resources.cpu=500m
-<<<<<<< HEAD
-data.resourcesmemory=1024Mi
->>>>>>> 🐛 Fix all the calalog blocks
-=======
 data.resources.memory=1024Mi
->>>>>>> 🐛 Fix (NO_TICKET): Patroni

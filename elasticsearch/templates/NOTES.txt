@@ -2,8 +2,4 @@ The elasticsearch cluster has been installed.
 
 Elasticsearch can be accessed:
 
-<<<<<<< HEAD
     {{ template "elasticsearch.client.fullname" . }}:9200
-=======
-    {{ .Values.kinto.alias }}:9200
->>>>>>> 🐛 Fix all the calalog blocks

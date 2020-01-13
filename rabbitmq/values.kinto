@@ -4,12 +4,6 @@ rabbitmqMemoryHighWatermark=256MB
 rabbitmqMemoryHighWatermarkType=absolute
 persistence.enabled=false
 persistence.size=1G
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 resources.enabled=true
->>>>>>> 🐛 Fix all the calalog blocks
-=======
->>>>>>> 🐛 Configure all values.kinto files
 resources.cpu=500m
 resources.memory=512Mi
