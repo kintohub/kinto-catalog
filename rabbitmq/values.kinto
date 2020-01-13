@@ -7,3 +7,7 @@ persistence.size=1G
 resources.enabled=true
 resources.cpu=500m
 resources.memory=512Mi
+rabbitmqUsername=guest
+rabbitmqPassword=
+managementUsername=management
+managementPassword=

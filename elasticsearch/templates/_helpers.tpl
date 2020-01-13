@@ -3,7 +3,7 @@
 Expand the name of the chart.
 */}}
 {{- define "elasticsearch.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
+cs-{{- .Values.kinto.alias}}
 {{- end -}}
 
 {{/*
