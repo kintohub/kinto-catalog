@@ -5,7 +5,7 @@ metadata:
   annotations:
 {{ toYaml .Values.service.annotations | indent 4 }}
 {{- end }}
-  name: "{{ .Values.kinto.alias }}"
+  name: "{{ template "influxdb.fullname" . }}"
   labels:
     app: "{{ template "influxdb.fullname" . }}"
     chart: "{{ template "influxdb.chart" . }}"

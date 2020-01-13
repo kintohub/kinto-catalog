@@ -1,2 +1,0 @@
-Patroni can be accessed via port 5432 on the following DNS name from within your cluster:
-{{ .Values.kinto.alias }}

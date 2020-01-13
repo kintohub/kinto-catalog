@@ -1,0 +1,8 @@
+** Please be patient while the chart is being deployed **
+
+PostgreSQL can be accessed via port {{ template "postgresql.port" . }} on the following DNS name from within your cluster:
+
+    {{ template "postgresql.fullname" . }} - Read/Write connection
+{{- if .Values.replication.enabled }}
+    {{ template "postgresql.fullname" . }}-read - Read only connection
+{{- end }}

@@ -1,7 +1,8 @@
-replicas=1
+replicas=2
 auth=false
 redisPassword=changeme
 persistence.enabled=false
 persistence.size=10Gi
+resources.enabled=true
 resources.cpu=100m
 resources.memory=256Mi

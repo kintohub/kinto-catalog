@@ -22,5 +22,5 @@ blockName: {{ .Values.kinto.blockName }}
 envId: {{ .Values.kinto.envId }}
 ```
 to your deployment/statefulset so that the pods get these labels
-5. Service exposed to the customer should be named `{{ .Values.kinto.alias }}`
+5. Change the `fullName` in `_helpers.tpl` to be `cs-{{ .Values.kinto.alias }}`
 6. Make sure the helm chart does not try to create forbidden resources (daemonset)

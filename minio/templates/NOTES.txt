@@ -1,3 +1,0 @@
-Minio can be accessed via port {{ .Values.service.port }} on the following DNS name:
-
-{{ .Values.kinto.alias }}
