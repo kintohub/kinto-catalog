@@ -4,7 +4,6 @@ accessKey=AKIAIOSFODNN7EXAMPLE
 secretKey=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 persistence.enabled=false
 persistence.size=10Gi
-resources.enabled=true
 resources.memory=128Mi
 resources.cpu=250m
 environment.MINIO_BROWSER=on

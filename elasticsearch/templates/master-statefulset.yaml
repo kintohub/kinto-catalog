@@ -74,6 +74,7 @@ spec:
         nodeAffinity:
 {{ toYaml . | indent 10 }}
       {{- end }}
+{{- if eq .Values.kinto.workspaceTier "PRO_TIER" }}
 {{- if .Values.master.nodeSelector }}
       nodeSelector:
 {{ toYaml .Values.master.nodeSelector | indent 8 }}
@@ -81,6 +82,7 @@ spec:
 {{- if .Values.master.tolerations }}
       tolerations:
 {{ toYaml .Values.master.tolerations | indent 8 }}
+{{- end }}
 {{- end }}
 {{- if .Values.master.terminationGracePeriodSeconds }}
       terminationGracePeriodSeconds: {{ .Values.master.terminationGracePeriodSeconds }}

@@ -38,10 +38,12 @@ spec:
       {{ if .Values.haproxy.serviceAccount.create }}
       serviceAccountName: {{ template "redis-ha.serviceAccountName" . }}-haproxy
       {{ end }}
+{{- if eq .Values.kinto.workspaceTier "PRO_TIER" }}
       nodeSelector:
 {{ toYaml .Values.nodeSelector | indent 8 }}
       tolerations:
 {{ toYaml .Values.tolerations | indent 8 }}
+{{ end }}
       initContainers:
       - name: config-init
         image: {{ .Values.haproxy.image.repository }}:{{ .Values.haproxy.image.tag }}

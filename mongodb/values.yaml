@@ -1,8 +1,10 @@
+#kintohub
 kinto:
   alias:
   workspace:
   envId:
   blockName:
+  workspaceTier:
 
 replicas: 3
 port: 27017
@@ -93,11 +95,16 @@ resources:
 
 ## Node selector
 ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
-nodeSelector: {}
+nodeSelector:
+  type: protier-pool
 
 affinity: {}
 
-tolerations: []
+tolerations:
+- key: "type"
+  operator: "Equal"
+  value: "protier-pool"
+  effect: "NoSchedule"
 
 extraLabels: {}
 

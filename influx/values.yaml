@@ -4,6 +4,7 @@ kinto:
   workspace:
   envId:
   blockName:
+  workspaceTier:
 
 ## influxdb image version
 ## ref: https://hub.docker.com/r/library/influxdb/tags/
@@ -125,7 +126,8 @@ ingress:
 ## Node labels for pod assignment
 ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##
-nodeSelector: {}
+nodeSelector:
+  type: protier-pool
 
 ## Affinity for pod assignment
 ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
@@ -135,7 +137,11 @@ affinity: {}
 ## Tolerations for pod assignment
 ## Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 ##
-tolerations: []
+tolerations:
+- key: "type"
+  operator: "Equal"
+  value: "protier-pool"
+  effect: "NoSchedule"
 # - key: "key"
 #   operator: "Equal|Exists"
 #   value: "value"

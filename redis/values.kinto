@@ -1,4 +1,5 @@
 replicas=2
+sentinel.quorum=2
 auth=false
 redisPassword=changeme
 persistence.enabled=false

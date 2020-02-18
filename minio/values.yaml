@@ -1,9 +1,10 @@
 #kintohub
 kinto:
-  alias: fuck
-  workspace: fuck
-  envId: fuck
-  blockName: fuck
+  alias:
+  workspace:
+  envId:
+  blockName:
+  workspaceTier:
 
 ## Provide a name in place of minio for `app:` labels
 ##
@@ -166,8 +167,13 @@ ingress:
 ## Node labels for pod assignment
 ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##
-nodeSelector: {}
-tolerations: []
+nodeSelector:
+  type: protier-pool
+tolerations:
+- key: "type"
+  operator: "Equal"
+  value: "protier-pool"
+  effect: "NoSchedule"
 affinity: {}
 
 ## Add stateful containers to have security context, if enabled MinIO will run as this

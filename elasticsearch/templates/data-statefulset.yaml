@@ -74,6 +74,7 @@ spec:
         nodeAffinity:
 {{ toYaml . | indent 10 }}
       {{- end }}
+{{- if eq .Values.kinto.workspaceTier "PRO_TIER" }}
 {{- if .Values.data.nodeSelector }}
       nodeSelector:
 {{ toYaml .Values.data.nodeSelector | indent 8 }}
@@ -81,6 +82,7 @@ spec:
 {{- if .Values.data.tolerations }}
       tolerations:
 {{ toYaml .Values.data.tolerations | indent 8 }}
+{{- end }}
 {{- end }}
 {{- if or .Values.extraInitContainers .Values.sysctlInitContainer.enabled .Values.chownInitContainer.enabled .Values.cluster.plugins }}
       initContainers:

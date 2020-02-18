@@ -1,8 +1,10 @@
+#kintohub
 kinto:
   alias:
   workspace:
   envId:
   blockName:
+  workspaceTier:
 
 ## Global Docker image parameters
 ## Please, note that this will override the image parameters, including dependencies, configured to use the global value
@@ -311,9 +313,14 @@ master:
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
   ## ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption
-  nodeSelector: {}
+  nodeSelector:
+    type: protier-pool
   affinity: {}
-  tolerations: []
+  tolerations:
+  - key: "type"
+    operator: "Equal"
+    value: "protier-pool"
+    effect: "NoSchedule"
   labels: {}
   annotations: {}
   podLabels: {}

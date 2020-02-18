@@ -316,16 +316,18 @@ spec:
             initialDelaySeconds: 30
             periodSeconds: 10
 {{ end }}
+{{- if eq .Values.kinto.workspaceTier "PRO_TIER" }}
    {{- with .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}
     {{- end }}
-    {{- with .Values.affinity }}
-      affinity:
-{{ toYaml . | indent 8 }}
-    {{- end }}
     {{- with .Values.tolerations }}
       tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+{{- end }}
+    {{- with .Values.affinity }}
+      affinity:
 {{ toYaml . | indent 8 }}
     {{- end }}
       volumes:

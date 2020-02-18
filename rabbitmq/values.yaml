@@ -4,6 +4,7 @@ kinto:
   workspace:
   envId:
   blockName:
+  workspaceTier:
 
 ## RabbitMQ application credentials
 ## Ref: http://rabbitmq.com/access-control.html
@@ -382,12 +383,17 @@ persistence:
 ## Node labels for pod assignment
 ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
 ##
-nodeSelector: {}
+nodeSelector:
+  type: protier-pool
 
 ## Node tolerations for pod assignment
 ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
 ##
-tolerations: []
+tolerations:
+- key: "type"
+  operator: "Equal"
+  value: "protier-pool"
+  effect: "NoSchedule"
 
 ## Extra Annotations to be added to pod
 podAnnotations: {}
