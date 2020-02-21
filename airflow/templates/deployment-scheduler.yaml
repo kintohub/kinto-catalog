@@ -32,7 +32,7 @@ spec:
       {{ toYaml .Values.podAnnotations | nindent 8 }}
     {{- end }}
 {{- if eq .Values.kinto.workspaceTier "PRO_TIER" }}
-    {{- if .Values.nodeSelector }}
+      {{- if .Values.nodeSelector }}
       nodeSelector:
       {{ toYaml .Values.nodeSelector | nindent 8 }}
       {{- end -}}
