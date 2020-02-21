@@ -1,11 +1,3 @@
-#kintohub
-kinto:
-  alias:
-  workspace:
-  envId:
-  blockName:
-  workspaceTier:
-
 ## Global Docker image parameters
 ## Please, note that this will override the image parameters, including dependencies, configured to use the global value
 ## Current available global Docker image parameters: imageRegistry and imagePullSecrets
@@ -50,7 +42,7 @@ image:
 ## Cluster settings
 cluster:
   enabled: true
-  slaveCount: 2
+  slaveCount: 3
 
 ## Use redis sentinel in the redis pod. This will disable the master and slave services and
 ## create one redis service with ports to the sentinel and the redis instances
@@ -147,7 +139,7 @@ clusterDomain: cluster.local
 networkPolicy:
   ## Specifies whether a NetworkPolicy should be created
   ##
-  enabled: false
+  enabled: true
 
   ## The Policy model to apply. When set to false, only pods with the correct
   ## client label will have network access to the port Redis is listening
@@ -206,7 +198,7 @@ usePassword: true
 ## Defaults to a random 10-character alphanumeric string if not set and usePassword is true
 ## ref: https://github.com/bitnami/bitnami-docker-redis#setting-the-server-password-on-first-run
 ##
-password: ""
+password:
 ## Use existing secret (ignores previous password)
 # existingSecret:
 ## Password key to be retrieved from Redis secret
@@ -264,10 +256,10 @@ master:
 
   ## Redis Master resource requests and limits
   ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-  resources:
-    enabled: true
-    memory: 256Mi
-    cpu: 100m
+  # resources:
+  #   requests:
+  #     memory: 256Mi
+  #     cpu: 100m
   ## Use an alternate scheduler, e.g. "stork".
   ## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
   ##
@@ -295,13 +287,8 @@ master:
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
   ##
-  nodeSelector:
-    type: protier-pool
-  tolerations:
-  - key: "type"
-    operator: "Equal"
-    value: "protier-pool"
-    effect: "NoSchedule"
+  # nodeSelector: {"beta.kubernetes.io/arch": "amd64"}
+  # tolerations: []
   ## Redis Master pod/node affinity/anti-affinity
   ##
   affinity: {}
@@ -429,19 +416,14 @@ slave:
     failureThreshold: 5
 
   ## Redis slave Resource
-  resources:
-    enabled: true
-    memory: 256Mi
-    cpu: 100m
+  # resources:
+  #   requests:
+  #     memory: 256Mi
+  #     cpu: 100m
 
   ## Redis slave selectors and tolerations for pod assignment
-  nodeSelector:
-    type: protier-pool
-  tolerations:
-  - key: "type"
-    operator: "Equal"
-    value: "protier-pool"
-    effect: "NoSchedule"
+  # nodeSelector: {"beta.kubernetes.io/arch": "amd64"}
+  # tolerations: []
 
   ## Use an alternate scheduler, e.g. "stork".
   ## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
@@ -493,7 +475,7 @@ slave:
 ## Prometheus Exporter / Metrics
 ##
 metrics:
-  enabled: false
+  enabled: true
 
   image:
     registry: docker.io
@@ -536,6 +518,16 @@ metrics:
     selector:
       prometheus: kube-prometheus
 
+  ## Metrics exporter pod priorityClassName
+  # priorityClassName: {}
+  service:
+    type: ClusterIP
+    ## Use serviceLoadBalancerIP to request a specific static IP,
+    ## otherwise leave blank
+    # loadBalancerIP:
+    annotations: {}
+    labels: {}
+
   ## Custom PrometheusRule to be defined
   ## The value is evaluated as a template, so, for example, the value can depend on .Release or .Chart
   ## ref: https://github.com/coreos/prometheus-operator#customresourcedefinitions
@@ -574,17 +566,6 @@ metrics:
       #    annotations:
       #      summary: Redis instance {{ "{{ $instance }}" }} has evicted keys
       #      description: Redis instance {{ "{{ $instance }}" }} has evicted {{ "{{ $value }}" }} keys in the last 5 minutes.
-
-
-  ## Metrics exporter pod priorityClassName
-  # priorityClassName: {}
-  service:
-    type: ClusterIP
-    ## Use serviceLoadBalancerIP to request a specific static IP,
-    ## otherwise leave blank
-    # loadBalancerIP:
-    annotations: {}
-    labels: {}
 
 ##
 ## Init containers parameters:

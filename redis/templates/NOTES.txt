@@ -1,2 +1,14 @@
-Redis can be accessed via port {{ .Values.redis.port }} and Sentinel can be accessed via port {{ .Values.sentinel.port }} on the following DNS name from within your cluster:
-{{ template "redis-ha.fullname" . }}
+** Please be patient while the chart is being deployed **
+
+{{- if .Values.cluster.enabled }}
+Redis can be accessed via port {{ .Values.redisPort }} on the following DNS names from within your cluster:
+
+{{ template "redis.fullname" . }}-master for read/write operations
+{{ template "redis.fullname" . }}-slave for read-only operations
+
+{{- else }}
+Redis can be accessed via port {{ .Values.redisPort }} on the following DNS name from within your cluster:
+
+{{ template "redis.fullname" . }}-master
+
+{{- end }}

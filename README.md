@@ -14,6 +14,7 @@ kinto:
   workspace:
   envId:
   blockName:
+  workspaceTier:
 ```
 
 ### Resources
