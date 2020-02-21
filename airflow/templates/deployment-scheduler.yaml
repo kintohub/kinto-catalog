@@ -31,20 +31,6 @@ spec:
       annotations:
       {{ toYaml .Values.podAnnotations | nindent 8 }}
     {{- end }}
-{{- if eq .Values.kinto.workspaceTier "PRO_TIER" }}
-      {{- if .Values.nodeSelector }}
-      nodeSelector:
-      {{ toYaml .Values.nodeSelector | nindent 8 }}
-      {{- end -}}
-      {{- with .Values.tolerations }}
-      tolerations:
-      {{ toYaml . | nindent 8 }}
-      {{- end }}
-{{- end }}
-    {{- with .Values.affinity }}
-      affinity:
-      {{ toYaml . | nindent 8 }}
-    {{- end }}
     spec:
       {{- include "airflow.imagePullSecrets" . | nindent 6 }}
       {{- if .Values.securityContext.enabled }}
@@ -65,6 +51,20 @@ spec:
           volumeMounts:
             - name: git-cloned-dag-files
               mountPath: /dags
+{{- if eq .Values.kinto.workspaceTier "PRO_TIER" }}
+      {{- if .Values.nodeSelector }}
+      nodeSelector:
+      {{ toYaml .Values.nodeSelector | nindent 8 }}
+      {{- end -}}
+      {{- with .Values.tolerations }}
+      tolerations:
+      {{ toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+      {{ toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: git-repo-syncer
           image: "{{ template "git.image" . }}"
