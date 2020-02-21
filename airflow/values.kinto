@@ -1,0 +1,16 @@
+airflow.auth.username=user
+airflow.auth.password=bn_airflow
+airflow.auth.fernetKey=81HqDtbqAywKSOumSha3BhWNOdQ26slT6K0YaZeZyPs=
+airflow.worker.replicas=1
+airflow.loadExamples=true
+airflow.cloneDagFilesFromGit.enabled=false
+airflow.cloneDagFilesFromGit.repository
+airflow.cloneDagFilesFromGit.branch
+externalDatabase.host=cs-postgres
+externalDatabase.user=bn_airflow
+externalDatabase.password=bn_airflow
+externalDatabase.database=postgres
+externalDatabase.port=5432
+externalRedis.host=cs-redis
+externalRedis.port=6379
+externalRedis.password=bn_airflow
