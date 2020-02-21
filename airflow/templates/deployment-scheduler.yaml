@@ -202,12 +202,12 @@ spec:
           {{- end }}
 {{- if .Values.resources.enabled }}
           resources:
-          requests:
-            memory: {{ .Values.resources.memory }}
-            cpu: {{ .Values.resources.cpu }}
-          limits:
-            memory: {{ .Values.resources.memory }}
-            cpu: {{ .Values.resources.cpu }}
+            requests:
+              memory: {{ .Values.resources.memory }}
+              cpu: {{ .Values.resources.cpu }}
+            limits:
+              memory: {{ .Values.resources.memory }}
+              cpu: {{ .Values.resources.cpu }}
 {{- end }}
       volumes:
       {{- if .Files.Glob "files/dags/*.py" }}
