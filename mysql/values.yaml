@@ -132,6 +132,13 @@ resources:
 
 master:
   antiAffinity: soft
+  nodeSelector:
+    type: protier-pool
+  tolerations:
+  - key: "type"
+    operator: "Equal"
+    value: "protier-pool"
+    effect: "NoSchedule"
   ## updateStrategy for MySQL Master StatefulSet
   ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
   updateStrategy:
@@ -218,19 +225,6 @@ master:
     timeoutSeconds: 1
     successThreshold: 1
     failureThreshold: 3
-
-  ## Affinity for pod assignment
-  ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
-  ##
-  affinity: {}
-
-  nodeSelector:
-    type: protier-pool
-  tolerations:
-  - key: "type"
-    operator: "Equal"
-    value: "protier-pool"
-    effect: "NoSchedule"
 
 slave:
   replicas: 1
