@@ -50,6 +50,16 @@ spec:
         fsGroup: {{ .Values.securityContext.fsGroup }}
         runAsUser: {{ .Values.securityContext.runAsUser }}
       {{- end }}
+{{- if eq .Values.kinto.workspaceTier "PRO_TIER" }}
+      {{- if .Values.slave.nodeSelector }}
+      nodeSelector:
+      {{ toYaml .Values.slave.nodeSelector | indent 8 }}
+      {{- end }}
+      {{- if .Values.slave.tolerations }}
+      tolerations:
+      {{ toYaml .Values.slave.tolerations | indent 8 }}
+      {{- end }}
+{{- end }}
       {{- if eq .Values.slave.antiAffinity "hard" }}
       affinity:
         podAntiAffinity:
@@ -206,19 +216,4 @@ spec:
 {{- else }}
         - name: "data"
           emptyDir: {}
-{{- end }}
-{{- if eq .Values.kinto.workspaceTier "PRO_TIER" }}
-      {{- if .Values.slave.nodeSelector }}
-      nodeSelector:
-{{ toYaml .Values.slave.nodeSelector | indent 8 }}
-      {{- end }}
-      {{- if .Values.slave.tolerations }}
-      tolerations:
-{{ toYaml .Values.slave.tolerations | indent 8 }}
-      {{- end }}
-{{- end }}
-      {{- with .Values.slave.affinity }}
-      affinity:
-{{ toYaml . | indent 8 }}
-      {{- end }}
 {{- end }}
