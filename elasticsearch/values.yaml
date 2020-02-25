@@ -137,7 +137,6 @@ client:
     operator: "Equal"
     value: "protier-pool"
     effect: "NoSchedule"
-  tolerations: []
   # terminationGracePeriodSeconds: 60
   initResources: {}
     # limits:
